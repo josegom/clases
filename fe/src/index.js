@@ -1,4 +1,4 @@
-var greeter = require('./greeter');
+var greeter = require('./index2');
 
 var greeting = greeter.greet();
 
