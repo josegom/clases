@@ -1,1 +1,4 @@
-mvn clean install -f parent/pom.xml && java -jar be/target/be-0.0.1-SNAPSHOT.jar -spring.profiles.active=prod
+mvn clean install -f parent/pom.xml && java -jar be/target/be-0.0.1-SNAPSHOT.jar --server.port=<server_port> --spring.profiles.active=prod --spring.datasource.url=<datasource> --spring.datasource.username=<usename> --spring.datasource.password=<password>
+
+
+
