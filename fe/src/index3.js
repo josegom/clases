@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Pagina from "./pagina";
+import Alumnos from "./alumnos/alumnos";
 import OtraPagina from "./otraPagina";
 import App from "./app";
 
@@ -14,14 +14,14 @@ const router = (
   <nav>
   <ul>
     <li><Link to='/'>Home</Link></li>
-    <li><Link to='/pagina'>Roster</Link></li>
+    <li><Link to='/alumnosList'>Listado alumnos</Link></li>
     <li><Link to='/otraPagina'>Schedule</Link></li>
   </ul>
 </nav>
  
   <main>
  <Switch>      
-      <Route path='/pagina' component={Pagina} />
+      <Route path='/alumnosList' component={Alumnos} />
       <Route path='/otraPagina' component={OtraPagina} />
       </Switch>
       </main>
