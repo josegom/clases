@@ -82,7 +82,7 @@ const PATHS = {
 
 module.exports = {
   // your web-specific entry file
-  entry: path.resolve(appDirectory, 'src/index3.js'),
+  entry: path.resolve(appDirectory, 'src/app.js'),
   devtool: 'eval',
 
   // configures where the build ends up

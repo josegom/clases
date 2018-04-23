@@ -21,6 +21,7 @@
     "expo": "^25.0.0",
     "expo-web": "^0.0.12",
     "react": "^16.2.0",
+    "react-big-calendar": "^0.19.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.0.0",
     "react-menu-bar": "^2.0.4",
