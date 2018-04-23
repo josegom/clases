@@ -1,38 +1,53 @@
 {
   "name": "fe",
   "version": "0.0.1-SNAPSHOT",
+  "private": true,
   "description": "Clases de eva",
-  "main": "./app",
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry-web.js",
   "autor": "josegom",
   "scripts": {
-    "build": "webpack -p"
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "jest",
+    "web": "webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/ --history-api-fallback",
+    "build": "NODE_ENV=production webpack -p --config ./webpack.config.js"
   },
-  "author": "",
+  "author": "josegom",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "react-scripts-ts": "2.14.0",
-    "whatwg-fetch": "^2.0.2"
+    "expo": "^25.0.0",
+    "expo-web": "^0.0.12",
+    "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.0.0",
+    "react-menu-bar": "^2.0.4",
+    "react-native": "0.52.0",
+    "react-native-web": "^0.4.0",
+    "react-navbar": "^1.1.1",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "reactstrap": "^5.0.0",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "2.9.4"
+  },
+  "jest": {
+    "preset": "jest-expo"
   },
   "devDependencies": {
-    "@types/jest": "^22.2.2",
-    "@types/node": "^9.6.3",
-    "@types/react": "^16.3.7",
-    "@types/react-dom": "^16.0.5",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-scripts": "1.0.6",
-    "typescript": "^2.8.1",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.14",
-    "webpack-dev-server": "1.14.0"
+    "react-native-scripts": "next",
+    "jest-expo": "25.0.0",
+    "react-test-renderer": "16.2.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-expo-web": "^0.0.5",
+    "babel-plugin-react-native-web": "^0.4.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-imports": "^1.4.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "file-loader": "^1.1.7",
+    "css-loader": "^0.28.7",
+    "style-loader": "^0.19.0"
   }
 }

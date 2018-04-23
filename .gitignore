@@ -1,3 +1,5 @@
+run.sh
+
 # Compiled class file
 *.class
 
@@ -30,3 +32,9 @@ target
 **/node_modules
 
 **/*tmp*
+
+
+
+.classpath
+.project
+.settings/

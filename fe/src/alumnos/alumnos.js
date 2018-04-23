@@ -16,7 +16,7 @@ export default class Alumnos extends React.Component {
 
   componentDidMount() {
       this.setState({isLoading: true});
-       axios.get('http://localhost:8090/api/alumnos')
+       axios.get('http://localhost:8080/api/alumnos')
             .then(res => {
               const alumnos = res.data._embedded.alumnos;
               this.setState({ alumnos: alumnos,isLoading: false });
