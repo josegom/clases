@@ -1,4 +1,10 @@
 export default [
+{
+    'title': 'Mi evento',
+    'allDay': false,
+    'start': 'sábado abr 04 2015 12:00:00 CEST',
+    'end': 'sábado abr 04 2015 13:00:00 CEST',
+  },
   {
     'title': 'All Day Event very long title',
     'allDay': true,

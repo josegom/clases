@@ -19,7 +19,7 @@ export default class Alumnos extends React.Component {
        axios.get('http://localhost:8080/api/alumnos')
             .then(res => {
               const alumnos = res.data._embedded.alumnos;
-              this.setState({ alumnos: alumnos,isLoading: false });
+                this.setState({ alumnos: alumnos,isLoading: false });
             });
     }
 

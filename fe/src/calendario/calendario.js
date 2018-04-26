@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import eventos from "./eventos";
+import axios from "axios";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-moment.locale("en");
+moment.locale("es");
 BigCalendar.momentLocalizer(moment);
 
   const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
@@ -15,7 +16,20 @@ export default class Calendario extends Component {
     view: "month",
     date: new Date(2015, 3, 12),
    // width: 500
+    event: [],
+    isLoading: true
   };
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date(2015, 3, 12),
+      view: "month",
+      event: [],
+      isLoading: true
+    };
+  }
 
   componentDidMount() {
     window.addEventListener("resize", () => {
@@ -24,26 +38,38 @@ export default class Calendario extends Component {
         height: window.innerHeight
       });*/
     });
+     this.setState({isLoading: true});
+           axios.get('http://localhost:8080/api/event')
+                .then(res => {
+                  this.setState({ event: res.data });
+                });
+             this.setState({isLoading: false});
   }
 
+
+
   render() {
-    return (
-      <div style={{ height: 700 }}>
-        <button onClick={() => this.setState({ view: "day" })}>Day</button>
-        <button onClick={() => this.setState({ view: "month" })}>Month</button>
-        <BigCalendar
-          style={{ height: 500, width: this.state.width }}
-          toolbar={false}
-          events={eventos}
-          step={60}
-          timeslots={8}
-          views={allViews}
-          view={this.state.view}
-          onView={() => {}}
-          date={this.state.date}
-          onNavigate={date => this.setState({ date })}
-        />
-      </div>
-    );
+
+ if (this.state.isLoading) {
+        return (<p>Loading...</p>);
+      }else{
+        return (
+          <div style={{ height: 700 }}>
+            <BigCalendar
+              style={{ height: 500, width: this.state.width }}
+              toolbar={true}
+              events={this.state.event}
+              step={60}
+              timeslots={8}
+              views={allViews}
+              view={this.state.view}
+              onView={() => {}}
+              date={this.state.date}
+              onNavigate={date => this.setState({ date })}
+            />
+          </div>
+        );
+    }
   }
 }
+

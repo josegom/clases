@@ -82,13 +82,13 @@ const PATHS = {
 
 module.exports = {
   // your web-specific entry file
-  entry: path.resolve(appDirectory, 'src/app.js'),
+  entry: path.resolve(appDirectory, 'src/index.js'),
   devtool: 'eval',
 
   // configures where the build ends up
   output: {
     filename: 'bundle.js',
-    publicPath: '/assets/',
+    publicPath: '/',
     path:  PATHS.build,
   },
 
