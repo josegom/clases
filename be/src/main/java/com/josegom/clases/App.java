@@ -1,4 +1,4 @@
-package com.tmp;
+package com.josegom.clases;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

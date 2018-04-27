@@ -13,7 +13,7 @@ BigCalendar.momentLocalizer(moment);
 
 export default class Calendario extends Component {
   state = {
-    view: "month",
+    view: "week",
     date: new Date(2015, 3, 12),
    // width: 500
     event: [],
@@ -56,15 +56,17 @@ export default class Calendario extends Component {
         return (
           <div style={{ height: 700 }}>
             <BigCalendar
+              selectable
               style={{ height: 500, width: this.state.width }}
               toolbar={true}
               events={this.state.event}
               step={60}
               timeslots={8}
               views={allViews}
-              view={this.state.view}
+              defaultView={this.state.view}
               onView={() => {}}
-              date={this.state.date}
+              scrollToTime={new Date(1970, 1, 1, 6)}
+              defaultDate={this.state.date}
               onNavigate={date => this.setState({ date })}
             />
           </div>
