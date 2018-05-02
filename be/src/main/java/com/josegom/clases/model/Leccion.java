@@ -1,6 +1,8 @@
 package com.josegom.clases.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -21,11 +23,11 @@ public class Leccion {
     private String descripcion = "";
 
     private String materia = "";
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm",locale="es_ES")
     private LocalTime hora_inicio;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm",locale="es_ES")
     private LocalTime hora_fin ;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy",locale="es_ES")
     private LocalDate fecha = null;
 
 
@@ -42,6 +44,8 @@ public class Leccion {
         inverseJoinColumns = @JoinColumn(name = "alumno_id")
     )
     private List<Alumno> clasesApuntado = new ArrayList<>();
+
+    public Leccion(){}
 
     public Leccion(DayOfWeek dia, String descripcion, String materia, LocalTime horaInicio, LocalTime horaFin, LocalDate fecha) {
         this.dia = dia;

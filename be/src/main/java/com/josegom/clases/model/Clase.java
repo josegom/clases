@@ -1,5 +1,7 @@
 package com.josegom.clases.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -20,13 +22,15 @@ public class Clase {
     private String descripcion = "";
 
     private String materia = "";
-
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm",locale="es_ES")
     private LocalTime hora_inicio ;
+    @JsonFormat(shape =JsonFormat.Shape.STRING, pattern = "HH:mm", locale="es_ES")
 
     private LocalTime hora_fin ;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy",locale="es_ES")
     private LocalDate fecha_inicio = null;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy",locale="es_ES")
     private LocalDate fecha_fin = null;
 
     public void setClasesApuntado(List<Alumno> clasesApuntado) {

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import eventos from "./eventos";
 import axios from "axios";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+
+
+
 
 moment.locale("es");
 BigCalendar.momentLocalizer(moment);
@@ -39,7 +41,7 @@ export default class Calendario extends Component {
       });*/
     });
      this.setState({isLoading: true});
-           axios.get('http://localhost:8080/api/event')
+           axios.get('http://localhost:8081/api/event')
                 .then(res => {
                   this.setState({ event: res.data });
                 });

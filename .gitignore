@@ -38,3 +38,9 @@ target
 .classpath
 .project
 .settings/
+
+
+
+.history/
+.vscode/
+run*
