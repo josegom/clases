@@ -12,11 +12,6 @@ import axios from "axios";
 
 import style from './style.css'
 
-import MultiSelect from './prueba'
-
-
-
-
 axios.defaults.baseURL = 'http://localhost:8081';
 
 const router = (

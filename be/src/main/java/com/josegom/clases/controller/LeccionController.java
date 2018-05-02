@@ -12,7 +12,7 @@ import java.util.Collection;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class EventController  {
+public class LeccionController {
 
 
     @GetMapping("/api/event")

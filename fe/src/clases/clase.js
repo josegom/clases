@@ -18,7 +18,8 @@ export default class Clase extends React.Component {
       fecha_fin: "",
       options: [],
 			value: [],
-			isLoading: true
+      isLoading: true,
+      alumnosSeleccionados: []
       };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,10 +27,10 @@ export default class Clase extends React.Component {
     }
 
 
-    createOptions(x){
+    createOptions(alumno){
       return( {
-        "value": x._links.alumno.href,
-        "desc": x.nombre
+        "value": alumno._links.alumno.href,
+        "desc": alumno.nombre
       });
       }
 
@@ -40,7 +41,7 @@ export default class Clase extends React.Component {
             axios.get('http://localhost:8081/api/alumnos')
                  .then(res => {
                  const alumnos = res.data._embedded.alumnos;                                      
-                 const options = alumnos.map(x => this.createOptions(x));
+                 const options = alumnos.map(alumno => this.createOptions(alumno));
                  this.setState({ options: options,isLoading: false });
                  });
    }
@@ -50,8 +51,11 @@ export default class Clase extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
+    console.log("TARGET",target);
     const value = target.type === "checkbox" ? target.checked : target.value;
+    console.log("value",value);
     const name = target.name;
+    console.log("name",name);
     this.setState({
       [name]: value
     });
@@ -59,8 +63,12 @@ export default class Clase extends React.Component {
 
 
   handleSubmit(event) { 
-    alert(this.state.dia);
 
+   const ids= this.state.alumnosSeleccionados.map(alumno =>{
+    const partido = alumno.split("/");
+    return partido[partido.length-1]  ;
+  }  
+  )
     event.preventDefault();
         axios.post('/api/clase', {
           dia : this.state.dia,
@@ -69,7 +77,8 @@ export default class Clase extends React.Component {
           hora_inicio: this.state.hora_inicio,
           hora_fin: this.state.hora_fin,
           fecha_inicio: this.state.fecha_inicio,
-          fecha_fin: this.state.fecha_fin
+          fecha_fin: this.state.fecha_fin,
+          idAlumnos: ids          
         }
           )
           .then(res => {
@@ -108,20 +117,24 @@ render() {
 
           <label for="dia" class="dia">D&iacute;a de la Semana</label>
               <select value={this.state.dia} name="dia" onChange={this.handleInputChange}>
-                <option value="Monday">Lunes</option>
-                <option value="Tuesday">Martes</option>
-                <option value="Wednesday">Mi&eacute;rcoles</option>
-                <option value="Thursday">Jueves</option>
-                <option value="Friday">Viernes</option>
-                <option value="Saturday">S&aacute;bado</option>
-                <option value="Sunday">Domingo</option>
+                <option value="MONDAY">Lunes</option>
+                <option value="TUESDAY">Martes</option>
+                <option value="WEDNESDAY">Mi&eacute;rcoles</option>
+                <option value="THURSDAY">Jueves</option>
+                <option value="FRIDAY">Viernes</option>
+                <option value="SATURDAY">S&aacute;bado</option>
+                <option value="SUNDAY">Domingo</option>
               </select>
               <label for="alumnos" class="alumno">Selecciona alumnos</label>
                         <MultiSelectBox                      
                       options= {this.state.options}
                       labelKey="desc"
                       valueKey="value"
-                      onChange=""            
+                      onChange={selectedValues => {
+                        console.log(selectedValues);
+                        this.setState({alumnosSeleccionados: selectedValues})
+
+                    }}
                     />            
               
         <input type="submit" value="Submit" />
@@ -131,5 +144,4 @@ render() {
   }
 
 }
-
 

@@ -1,18 +1,20 @@
 package com.josegom.clases.controller;
 
+import com.google.common.collect.Lists;
 import com.josegom.clases.logic.ClasesLogic;
+import com.josegom.clases.model.Alumno;
 import com.josegom.clases.model.Clase;
 import com.josegom.clases.model.Leccion;
+import com.josegom.clases.repository.AlumnosRepository;
+import com.josegom.clases.repository.ClasesRepository;
 import com.josegom.clases.repository.LeccionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Collection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,32 +23,51 @@ public class ClaseController {
 
 
     @Autowired
-    private LeccionRepository repository;
+    private LeccionRepository leccionRepository;
+    @Autowired
+    private ClasesRepository clasesRepository;
+
+    @Autowired
+    private AlumnosRepository alumnosRepository;
+
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ClaseController.class);
 
     @PostMapping("/api/clase")
     public void setClase(@RequestBody Clase clase) {
-        ClasesLogic cL = new ClasesLogic();
         LOGGER.info("Entrando {}",clase);
-        cL.getDays(clase.getFecha_inicio(), clase.getFecha_fin(),clase.getDia()).map(
-            c -> new Leccion(clase.getDia(),clase.getDescripcion(),clase.getMateria(),clase.getHora_inicio(),clase.getHora_fin(),c)
+        Clase claseGuardada = clasesRepository.save(clase);
+
+        Iterable<Alumno> alumnos = alumnosRepository.findAllById(clase.getIdAlumnos());
+        crearLecciones(claseGuardada, alumnos);
+        LOGGER.info("Saliendo");
+    }
+
+
+
+    @GetMapping("/api/clase")
+    public Iterable<Clase> getClase(){
+
+        return clasesRepository.findAll();
+    }
+
+
+    private void crearLecciones(Clase claseGuardada, Iterable<Alumno> alumnos) {
+        ClasesLogic cL = new ClasesLogic();
+       DateFormat fechaFormat = new SimpleDateFormat("dd/MM/yyyy");
+       DateFormat horaFormat = new SimpleDateFormat("HH:mm");
+        cL.getDays(claseGuardada.getFecha_inicio(), claseGuardada.getFecha_fin(),claseGuardada.getDia()).map(
+            dia -> new Leccion(claseGuardada,dia)
         ).forEach(l -> {
             LOGGER.info("Guardando {}",l);
-            repository.save(l);
+            l.setClasesApuntado(Lists.newArrayList(alumnos));
+            String fecha = fechaFormat.format(l.getFecha());
+
+            leccionRepository.save(l);
         } );
-        LOGGER.info("Saliendo");
-
-
     }
 
 
-    @GetMapping("api/clase")
-    public Iterable<Leccion> getClase(){
-        return repository.findAll();
-        /*return new Clase(DayOfWeek.MONDAY,"una descripcion", "una mataris",LocalTime.of(19,00,00,00),
-            LocalTime.of(20,00,00,00), LocalDate.of(2017,9,1),
-            LocalDate.of(2018,6,30));*/
-    }
 
 
 }

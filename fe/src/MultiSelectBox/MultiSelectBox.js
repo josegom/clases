@@ -17,15 +17,13 @@ constructor(props) {
   }
 
   static defaultProps = {
-    addAllLabel: "Add All",
-    removeAllLabel: "Remove All",
-    searchPlaceHolder: "Search...",
-    selectedLabel: "Items selected",
-    options: []
+    addAllLabel: "Añadir todos",
+    removeAllLabel: "Quitar todos",
+    searchPlaceHolder: "Buscar...",
+    selectedLabel: "Alumnos seleccionados"
   };
 
   getFilteredOptions() {
-    console.log("PROPS2",this.props);
     const { valueKey, labelKey, options } = this.props;
     const { filterText, selectedList } = this.state;
     return options

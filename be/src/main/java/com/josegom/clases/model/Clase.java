@@ -7,6 +7,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -33,23 +35,22 @@ public class Clase {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy",locale="es_ES")
     private LocalDate fecha_fin = null;
 
-    public void setClasesApuntado(List<Alumno> clasesApuntado) {
-        this.clasesApuntado = clasesApuntado;
+    @Transient
+    Iterable<Long> idAlumnos = Collections.EMPTY_LIST;
+
+
+    @OneToMany(mappedBy = "clase")
+    public List<Leccion> lecciones;
+
+
+    protected Clase() {}
+
+    public List<Leccion> getLecciones() {
+        return lecciones;
     }
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "clase_alumno",
-            joinColumns = @JoinColumn(name = "clase_id"),
-            inverseJoinColumns = @JoinColumn(name = "alumno_id")
-    )
-    private List<Alumno> clasesApuntado = new ArrayList<>();
-
-    protected Clase() {
-
-
+    public void setLecciones(List<Leccion> lecciones) {
+        this.lecciones = lecciones;
     }
 
     public Clase(DayOfWeek dia, String descripcion, String materia, LocalTime horaInicio, LocalTime horaFin, LocalDate fecha_inicio, LocalDate fecha_fin) {
@@ -90,7 +91,7 @@ public class Clase {
 
     public void setFecha_fin(LocalDate fecha_fin) { this.fecha_fin = fecha_fin; }
 
-
+    public void setIdAlumnos(Iterable<Long> idAlumnos) { this.idAlumnos = idAlumnos;  }
 
 
     public LocalTime getHora_inicio() {
@@ -119,15 +120,14 @@ public class Clase {
     public LocalDate getFecha_inicio() {      return fecha_inicio;  }
 
     public LocalDate getFecha_fin() {   return fecha_fin;  }
-
-    public List<Alumno> getClasesApuntado() {    return clasesApuntado; }
+    public Iterable<Long> getIdAlumnos() { return idAlumnos; }
 
 
     @Override
     public String toString() {
         return String.format(
-            "Clase[id=%d, dia='%s' descripcion='%s', materia='%s', hora_inicio='%s', hora_fin='%s', fecha_inicio='%s', fecha_fin='%s']",
-            id, dia, descripcion,materia, hora_inicio, hora_fin,fecha_inicio,fecha_fin);
+            "Clase[id=%d, dia='%s' descripcion='%s', materia='%s', hora_inicio='%s', hora_fin='%s', fecha_inicio='%s', fecha_fin='%s', idsAlmunos='%s']",
+            id, dia, descripcion,materia, hora_inicio, hora_fin,fecha_inicio,fecha_fin,idAlumnos);
     }
 
 

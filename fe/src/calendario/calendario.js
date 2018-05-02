@@ -40,6 +40,13 @@ export default class Calendario extends Component {
         height: window.innerHeight
       });*/
     });
+
+    axios.get('http://localhost:8081/api/leccion').
+    then(
+      res => { console.log("RES"+res._embedded);
+        
+      }
+    )
      this.setState({isLoading: true});
            axios.get('http://localhost:8081/api/event')
                 .then(res => {
